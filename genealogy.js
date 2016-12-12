@@ -1,4 +1,4 @@
-﻿ "use strict";
+ "use strict";
 var Genealogy = function(txt) {
   let g = this;
   var Fragment = function(index, tag, ref, value) {
@@ -256,7 +256,7 @@ var Genealogy = function(txt) {
       prev = curr;
     }
     return null;
-  }
+  };
   Person.prototype.getSosa = function(n) {
     let link = n.toString(2).substring(1).split('');
     for (var i = 0; i < link.length; i++) {
@@ -294,7 +294,7 @@ var Genealogy = function(txt) {
       });
     }
     return result;
-  }
+  };
   g.createPersonSelector = function(selects, functions, onchange) {
     let names = {};
     let length = Math.min(selects.length, functions.length);
@@ -321,12 +321,13 @@ var Genealogy = function(txt) {
           curr[value].forEach(function(person) {
             let newOption = document.createElement('option');
             newOption.value = person.id;
-            newOption.label = value;
+            newOption.textContent = value.replace(/\s/g, '\xA0');
             select.add(newOption);
           });
         } else {
           let newOption = document.createElement('option');
-          newOption.value = newOption.label = value;
+          newOption.value = value;
+          newOption.textContent = value.replace(/\s/g, '\xA0');
           select.add(newOption);
         }
       });
