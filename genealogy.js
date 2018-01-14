@@ -84,6 +84,15 @@ var Genealogy = function(txt) {
     }
     return result;
   };
+  Fragment.prototype.delete = function() {
+    let parent = this.parent;
+    if (parent) {
+      let children = parent.children;
+      for (let i = 0; i < children.length; i++) {
+        if (children[i] === this) {children.splice(i--, 1);}
+      }
+    }
+  };
   var Event = function(obj) {
     this.description = obj.getValue();
     this.cause = obj.getChildValue('CAUS');
@@ -416,6 +425,7 @@ var Genealogy = function(txt) {
     while (temp = regex.exec(txt)) {
       let level = +(temp[1]);
       let newObj = new Fragment(temp[2], temp[3], temp[4], temp[5]);
+      newObj.parent = levels[level];
       levels[level].children.push(newObj);
       levels[level + 1] = newObj;
     }
